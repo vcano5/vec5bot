@@ -5,19 +5,20 @@
 </head>
 <body>
 	<input placeholder="Introduce un texto" onclick="cargarAudio(this)">
-	<button> Ir </button>
+	<button id="btn-ir"> Ir </button>
 	<div id="reproductor"> </div>
 	<audio controls>
 		<source id="rID" src="" type="audio/mpeg">
 	</audio>
 
 	<script type="text/javascript">
-		function cargarAudio(o) {
+		function cargarAudio() {
+			var o = $('btn-ir').val().replace(/\s/g, "+");
 			/*$.ajax({
 				url: window.location.host
 			})*/
 
-			$.get(window.location.host+ "/hablame?texto=" + o.value.replace(/\s/g, "+")).done(function(data) {
+			$.get("hablame?texto=" + o).done(function(data) {
 				console.log(data)
 			})
 		}
