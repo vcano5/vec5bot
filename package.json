@@ -1,0 +1,41 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node f"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "@google-cloud/translate": "^1.1.0",
+    "body-parser": "^1.18.2",
+    "connect-busboy": "0.0.2",
+    "date-and-time": "^0.4.2",
+    "emoji-flags": "^1.2.0",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "get-json": "^1.0.0",
+    "iso-639-1": "^2.0.3",
+    "mathjs": "^5.0.1",
+    "moment": "^2.22.1",
+    "moment-timezone": "^0.5.16",
+    "mysql": "^2.15.0",
+    "plotly": "^1.0.6",
+    "pngjs": "^3.3.3",
+    "request": "^2.85.0",
+    "watson-developer-cloud": "^3.5.3"
+  }
+}
