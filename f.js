@@ -56,6 +56,10 @@ app.get('/web', function(req, res) {
 
 })
 
+app.get('/ghablame', function(req, res) {
+	res.sendFile(__dirname + '/ghablame.html')
+})
+
 app.get('/apod', function(req, res) {
     request(url, (error, response, body)=> {
 		if (!error && response.statusCode === 200) {

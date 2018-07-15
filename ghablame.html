@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<!--
+<head>
+	<title></title>
+</head>
+-->
+<body>
+	<input placeholder="Introduce un texto" onclick="cargarAudio(this)">
+	<button> Ir </button>
+	<div id="reproductor"> </div>
+	<audio controls>
+		<source id="rID" src="" type="audio/mpeg">
+	</audio>
+
+	<script type="text/javascript">
+		function cargarAudio(o) {
+			/*$.ajax({
+				url: window.location.host
+			})*/
+
+			$.get(window.location.host+ "/hablame?texto=" + o.value.replace(/\s/g, "+")).done(function(data) {
+				console.log(data)
+			})
+		}
+
+	</script>
+</body>
+</html>
