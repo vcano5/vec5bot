@@ -411,13 +411,12 @@ app.get('/graficar', function(req, res) {
 	    var fileStream = fs.createWriteStream(nombrearchivoUUID + '.png');
 	    imageStream.pipe(fileStream);
 	});
-	res.json(JSON.parse(responseImage("https:/vec5bot.herokuapp.com/graficaspng?archivo=" + nombrearchivoUUID)))
+	res.json(JSON.parse(responseImage("https:/vec5bot.herokuapp.com/graficaspng?archivo=" + nombrearchivoUUID + ".png")))
 })
 
 
 app.get('/graficaspng', function(req, res) {
-	var dir = path.join(__dirname, 'public');
-	var file = path.join(dir, req.query.archivo + ".png");
+	var file = path.join(__dirname, req.query.archivo + ".png");
 
 	if (file.indexOf(dir + path.sep) !== 0) {
 	    return res.status(403).end('Forbidden');
@@ -436,3 +435,32 @@ app.get('/graficaspng', function(req, res) {
 	    res.status(404).end('Not found');   
 	});
 })
+
+
+app.get('/wachar', function (req, res) {
+
+	var mime = {
+    html: 'text/html',
+    txt: 'text/plain',
+    css: 'text/css',
+    gif: 'image/gif',
+    jpg: 'image/jpeg',
+    png: 'image/png',
+    svg: 'image/svg+xml',
+    js: 'application/javascript'
+};
+    var file = path.join(dir, req.path.replace(/\/$/, '/index.html'));
+    if (file.indexOf(dir + path.sep) !== 0) {
+        return res.status(403).end('Forbidden');
+    }
+    var type = mime[path.extname(file).slice(1)] || 'text/plain';
+    var s = fs.createReadStream(file);
+    s.on('open', function () {
+        res.set('Content-Type', type);
+        s.pipe(res);
+    });
+    s.on('error', function () {
+        res.set('Content-Type', 'text/plain');
+        res.status(404).end('Not found');
+    });
+});
