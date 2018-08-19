@@ -377,8 +377,8 @@ app.get('/menuinicio', function(req, res) {
 })
 
 app.get('/graficar', function(req, res) {
-	var rangoX = {-10, 10};
-	var rangoY = {-10, 10}
+	/*var rangoX = {-10, 10};
+	var rangoY = {-10, 10}*/
 	if(req.query.rangox == null && req.query.rangoy == null) {
 		res.json(JSON.parse('{"estado":"No esta"}'))
 	}
