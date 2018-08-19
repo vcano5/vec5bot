@@ -419,9 +419,9 @@ app.get('/graficar', function(req, res) {
 app.get('/graficaspng', function(req, res) {
 	var file = __dirname + req.query.archivo + ".png";
 
-	if (file.indexOf(dir + path.sep) !== 0) {
+	/*if (file.indexOf(dir + path.sep) !== 0) {
 	    return res.status(403).end('Forbidden');
-	}
+	}*/
 
 	var type = 'image/png';
 	var s = fs.createReadStream(file);
