@@ -7,6 +7,7 @@ var ISO6391 = require('iso-639-1');
 var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');
 var plotly = require('plotly')(process.env.PLOTLY_USERNAME, process.env.PLOTLY_APIKEY);
 var uuidv4 = require('uuid/v4');
+var fs = require('fs')
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Corriendo en puerto ' + process.env.PORT);
