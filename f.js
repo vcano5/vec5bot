@@ -417,7 +417,7 @@ app.get('/graficar', function(req, res) {
 
 
 app.get('/graficaspng', function(req, res) {
-	var file = path.join(__dirname, req.query.archivo + ".png");
+	var file = __dirname + req.query.archivo + ".png";
 
 	if (file.indexOf(dir + path.sep) !== 0) {
 	    return res.status(403).end('Forbidden');
@@ -450,7 +450,7 @@ app.get('/wachar', function (req, res) {
     svg: 'image/svg+xml',
     js: 'application/javascript'
 };
-    var file = path.join(dir, req.path.replace(/\/$/, '/index.html'));
+    //var file = dir, req.path.replace(/\/$/, '/index.html');
     if (file.indexOf(dir + path.sep) !== 0) {
         return res.status(403).end('Forbidden');
     }
