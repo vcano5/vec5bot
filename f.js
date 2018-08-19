@@ -108,7 +108,8 @@ var hs2 = function(req, res) {
 
 app.get('/hora', function(req, res) {
 	console.log("Hora: ", moment().format('LT'));
-	var timezone = req.query.tz || '';
+	//var timezone = req.query.tz || '0';
+	var timezone =  '0';
 	console.log("Timezone: ", timezone)
     var h1 = '{"messages":[{"text":"Hora actual: '
 	var fix = 7+(timezone);
@@ -380,5 +381,8 @@ app.get('/graficar', function(req, res) {
 	var rangoY = {-10, 10}
 	if(req.query.rangox == null && req.query.rangoy == null) {
 		res.json(JSON.parse('{"estado":"No esta"}'))
+	}
+	else {
+		res.json(JSON.parse(responseText("Todo bien pariente")))
 	}
 })
