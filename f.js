@@ -115,7 +115,7 @@ app.get('/hora', function(req, res) {
 	var timezone =  '-4';
 	console.log("Timezone: ", timezone)
     var h1 = '{"messages":[{"text":"Hora actual en ciudad Juárez: '
-	var fix = 0-7;
+	var fix = 0-6;
 	var now = moment().add(fix, 'hours').format('LT');
 	console.log("now: ", now)
 	var h3 = '"}]}'
@@ -125,14 +125,14 @@ app.get('/hora', function(req, res) {
 
 // Clima
 app.get('/clima', function(req,res) {
-	var c4 = ("https://api.darksky.net/forecast/" + process.env.DARKSKY_API + "/" + req.query.lat + "," + req.query.lon + "?lang=es")
+	var c4 = ("https://api.darksky.net/forecast/" + process.env.DARKSKY_API + "/31.606016,-106.39845" + "?lang=es")
 	console.log("lat: ", req.query.lat)
 	console.log("lon: ", req.query.lon)
 	request(c4, (error, response, body)=> {
 		if (!error && response.statusCode === 200) {
 			const fbResponse = JSON.parse(body)
 			console.log(c4)
-			res.json(JSON.parse(responseText("El clima actual en " + req.query.ciudad + " es " + fbResponse['currently'].summary)))
+			res.json(JSON.parse(responseText("El clima actual en ciudad Juárez es " + fbResponse['currently'].summary)))
 		  }
 		  else {
 			res.json(JSON.parse(responseText("No tengo acceso a tu ubicacion")))
