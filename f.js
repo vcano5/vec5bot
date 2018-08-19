@@ -5,6 +5,8 @@ var date = require('date-and-time');
 var moment = require('moment');
 var ISO6391 = require('iso-639-1');
 var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');
+var plotly = require('plotly')(process.env.PLOTLY_USERNAME, process.env.PLOTLY_APIKEY);
+var uuidv4 = require('uuid/v4');
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Corriendo en puerto ' + process.env.PORT);
@@ -109,9 +111,9 @@ var hs2 = function(req, res) {
 app.get('/hora', function(req, res) {
 	console.log("Hora: ", moment().format('LT'));
 	//var timezone = req.query.tz || '0';
-	var timezone =  '0';
+	var timezone =  '4';
 	console.log("Timezone: ", timezone)
-    var h1 = '{"messages":[{"text":"Hora actual: '
+    var h1 = '{"messages":[{"text":"Hora actual en ciudad Juárez: '
 	var fix = 7+(timezone);
 	var now = moment().add(fix, 'hours').format('LT');
 	console.log("now: ", now)
@@ -175,7 +177,7 @@ app.get('/temperatura', function(req,res) {
 		request(c4, (error, response, body)=> {
 			if (!error && response.statusCode === 200) {
 				const fbResponse = JSON.parse(body)
-				res.json(JSON.parse(responseText("La temperatura actual en Ciudad Juárez es " + fbResponse['currently'].temperature + "°C")))
+				res.json(JSON.parse(responseText("La temperatura actual en ciudad Juárez es " + fbResponse['currently'].temperature + "°C")))
 			  }
 			  else {
 				res.json(JSON.parse(responseText("No tengo acceso a tu ubicacion")))
@@ -246,7 +248,7 @@ app.get('/pronostico', function(req,res) {
 		request(c4, (error, response, body)=> {
 			if (!error && response.statusCode === 200) {
 				const fbResponse = JSON.parse(body)
-				res.json(JSON.parse(responseText('No tengo acceso a tu ubicacion. El pronostico en Ciudad Juarez es ' + fbResponse['hourly'].summary)))
+				res.json(JSON.parse(responseText('No tengo acceso a tu ubicacion. El pronostico en ciudad Juárez es ' + fbResponse['hourly'].summary)))
 			  }
 			  else {
 				res.json(JSON.parse(responseText("No tengo acceso a tu ubicacion")))
@@ -377,12 +379,60 @@ app.get('/menuinicio', function(req, res) {
 })
 
 app.get('/graficar', function(req, res) {
+	var nombrearchivoUUID = uuidv4();
+
 	/*var rangoX = {-10, 10};
-	var rangoY = {-10, 10}*/
+	var rangoY = {-10, 10}
 	if(req.query.rangox == null && req.query.rangoy == null) {
 		res.json(JSON.parse('{"estado":"No esta"}'))
 	}
 	else {
 		res.json(JSON.parse(responseText("Todo bien pariente")))
+	}*/
+
+
+	var trace1 = {
+	  x: [1, 2, 3, 4],
+	  y: [10, 15, 13, 17],
+	  type: "scatter"
+	};
+
+	var figure = { 'data': [trace1] };
+
+	var imgOpts = {
+	    format: 'png',
+	    width: 1000,
+	    height: 500
+	};
+
+	plotly.getImage(figure, imgOpts, function (error, imageStream) {
+	    if (error) return console.log (error);
+
+	    var fileStream = fs.createWriteStream(nombrearchivoUUID + '.png');
+	    imageStream.pipe(fileStream);
+	});
+	res.json(JSON.parse(responseImage("https:/vec5bot.herokuapp.com/graficaspng?archivo=" + nombrearchivoUUID)))
+})
+
+
+app.get('/graficaspng', function(req, res) {
+	var dir = path.join(__dirname, 'public');
+	var file = path.join(dir, req.query.archivo + ".png");
+
+	if (file.indexOf(dir + path.sep) !== 0) {
+	    return res.status(403).end('Forbidden');
 	}
+
+	var type = 'image/png';
+	var s = fs.createReadStream(file);
+
+	s.on('open', function () {
+	    res.set('Content-Type', type);
+	    s.pipe(res);
+	});
+
+	s.on('error', function () {
+	    res.set('Content-Type', 'text/plain');
+	    res.status(404).end('Not found');   
+	});
 })
