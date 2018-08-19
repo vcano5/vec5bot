@@ -112,7 +112,7 @@ var hs2 = function(req, res) {
 app.get('/hora', function(req, res) {
 	console.log("Hora: ", moment().format('LT'));
 	//var timezone = req.query.tz || '0';
-	var timezone =  '4';
+	var timezone =  '0';
 	console.log("Timezone: ", timezone)
     var h1 = '{"messages":[{"text":"Hora actual en ciudad Juárez: '
 	var fix = 7+(timezone);
