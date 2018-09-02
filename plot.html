@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graficador de funciones matematicas</title>
+  <script src="https://unpkg.com/mathjs@5.1.0/dist/math.min.js"></script>
+
+  <script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+
+  <style>
+    input[type=text] {
+      width: 250px;
+    }
+    input[type=submit] {
+      border-radius: 10px;
+    }
+    input {
+      padding: 6px;
+    }
+    body, html, input {
+      font-family: sans-serif;
+      font-size: 11pt;
+
+    }
+    form {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<form id="form">
+  <label for="eq">Ingresa una ecuacion:</label>
+  <input type="text" id="eq" value="4 * sin(x) + 5 * cos(x/2)" />
+  <input type="submit" value="Graficar" />
+</form>
+
+<div id="plot"></div>
+
+<table align="center"> 
+  <tr>
+    <th>Rango</th>
+    <th>Actualizar</th>
+  </tr>
+  <tr>
+    <th><input id="rangox" value="10" placeholder="Rango X" type="number" style="width: 25%" max="50"></th>
+    <th>
+      <input type="submit" value="Actualizar" id="actualizar"/>
+    </th>
+  </tr>
+</table>
+
+
+<a href="/index.html" style="position: absolute;bottom: 0"> Pagina de Facebook </a>
+
+<script>
+
+  function draw() {
+    try {
+      // compile the expression once
+      const expression = document.getElementById('eq').value
+      const expr = math.compile(expression)
+      const rangox = document.getElementById('rangox').value
+
+      // evaluate the expression repeatedly for different values of x
+      const xValues = math.range((rangox - rangox - rangox), rangox, 0.5).toArray()
+      const yValues = xValues.map(function (x) {
+        return expr.eval({x: x})
+      })
+
+      // render the plot using plotly
+      const trace1 = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter'
+      }
+
+      var layout = {
+        xaxis: {
+          range: [ -10, 10 ]
+        },
+        yaxis: {
+          range: [-10, 10]
+        },
+        title:expression,
+        paper_bgcolor: '#ffffff',
+        plot_bgcolor: '#ffffff'
+      };
+
+      const data = [trace1]
+      Plotly.newPlot('plot', data, layout)
+    }
+    catch (err) {
+      console.error(err)
+      alert(err)
+    }
+  }
+
+  document.getElementById('form').onsubmit = function (event) {
+    event.preventDefault()
+    draw()
+  }
+
+  document.getElementById('actualizar').onclick = function(e) {
+    e.preventDefault()
+    draw()
+  }
+
+  draw()
+</script>
+
+</body>
+</html>
