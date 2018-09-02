@@ -87,6 +87,10 @@ app.get('/apod/explicacion', function(req, res) {
 })
 })
 
+app.get('/fb', function(req, res) {
+	res.sendFile(__dirname + 'index.html')
+}
+
 app.get('/apod/ayer', function(req, res) {
 	ayer = new Date();
 	ayer.setDate(ayer.getDate() - 1)
