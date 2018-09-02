@@ -49,7 +49,7 @@ request(url, (error, response, body)=> {
 
 app.get('/', function(req, res) {
 	//res.sendStatus(204)
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/plot.html');
 
 })
 
