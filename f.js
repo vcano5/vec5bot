@@ -59,14 +59,14 @@ app.get('/web', function(req, res) {
 
 })
 
-app.get('/comenzarspam', function(req, res) {
+/*app.get('/comenzarspam', function(req, res) {
 	if(req.query.usuario.equals('Victor Mireles') {
 		if(req.query.id != null) {
 			
 		}
 		res.json(JSON.parse(responseText("Fierro pariente puro culiacan sinaloa")))
 	} 
-})
+})*/
 
 
 app.get('/ghablame', function(req, res) {
