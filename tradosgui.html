@@ -33,14 +33,15 @@
     		var texto = document.getElementById('texto').value;
 
 
-    		var o = $('tradosb').val().replace(/\s/g, "+");
+    		//var o = $('tradosb').val().replace(/\s/g, "+");
 			/*$.ajax({
 				url: window.location.host
 			})*/
 
 			console.log(idioma)
 			console.log(texto)
-			$.get("trados?to= " + idioma + "texto=" + texto).done(function(data) {
+
+			$.get("trados?to= " + idioma.replace(/%20| /g, '&') + "&texto=" + texto).done(function(data) {
 				console.log(data)
 				document.getElementById('traducciontexto').innerHTML = data;
 			})
