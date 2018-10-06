@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Traductor IBM</title>
+</head>
+<body>
+	<form id="form">
+		<input type="text" id="texto" placeholder="Introduce un texto">
+
+		 <select id="opcion">
+		 	<option value="es-en"> Español > Ingles </option>
+		 	<option value="en-es"> Ingles > Español </option>
+		 	<option value="es-fr"> Español > Frances </option>
+		 	<option value="es-ca"> Español > Catalan </option>
+		 </select>
+
+		<input type="submit" value="Traducir" />
+		<button id="tradosb"> Traducir b </button>
+	</form>
+
+	<div id="traducciontexto"></div>
+
+	<script type="text/javascript">
+		//https://vec5bot.herokuapp.com/trados?to={{modelo_traduccion}}&texto={{texto_traduccion}}
+
+		document.getElementById('form').onsubmit = function (event) {
+    		event.preventDefault()
+    		var idioma = document.getElementById('opcion').options[document.getElementById('opcion'.selectedIndex)].value;
+    		var texto = document.getElementById('texto').value;
+
+
+    		var o = $('tradosb').val().replace(/\s/g, "+");
+			/*$.ajax({
+				url: window.location.host
+			})*/
+
+			$.get("trados?to= " + idioma + "texto=" + texto).done(function(data) {
+				console.log(data)
+				document.getElementById('traducciontexto').innerHTML = data;
+			})
+    	}
+
+
+	</script>
+	
+</body>
+</html>
