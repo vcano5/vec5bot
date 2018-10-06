@@ -9,10 +9,10 @@
 		<input type="text" id="texto" placeholder="Introduce un texto">
 
 		 <select id="opcion">
-		 	<option value="es-en"> Español > Ingles </option>
-		 	<option value="en-es"> Ingles > Español </option>
-		 	<option value="es-fr"> Español > Frances </option>
-		 	<option value="es-ca"> Español > Catalan </option>
+		 	<option value="es-en">es-en</option>
+		 	<option value="en-es">es-en</option>
+		 	<option value="es-fr">es-fr</option>
+		 	<option value="es-ca">es-ca</option>
 		 </select>
 
 		<input type="submit" value="Traducir" />
@@ -41,9 +41,9 @@
 			console.log(idioma)
 			console.log(texto)
 
-			$.get("trados?to= " + idioma.replace(/%20| /g, '&') + "&texto=" + texto).done(function(data) {
+			$.get("trados?to=" + idioma.replace(/%20| /g, '&') + "&texto=" + texto).done(function(data) {
 				console.log(data)
-				document.getElementById('traducciontexto').innerHTML = data;
+				document.getElementById('traducciontexto').innerHTML = data['messages'][0]['text'];
 			})
     	}
 
