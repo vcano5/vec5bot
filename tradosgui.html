@@ -25,6 +25,7 @@
 
 		document.getElementById('form').onsubmit = function (event) {
     		event.preventDefault()
+
     		var idioma = document.getElementById('opcion').options[document.getElementById('opcion'.selectedIndex)].value;
     		var texto = document.getElementById('texto').value;
 
@@ -34,6 +35,8 @@
 				url: window.location.host
 			})*/
 
+			console.log(idioma)
+			console.log(texto)
 			$.get("trados?to= " + idioma + "texto=" + texto).done(function(data) {
 				console.log(data)
 				document.getElementById('traducciontexto').innerHTML = data;
