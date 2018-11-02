@@ -7,6 +7,7 @@ var ISO6391 = require('iso-639-1');
 var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');
 var plotly = require('plotly')(process.env.PLOTLY_USERNAME, process.env.PLOTLY_APIKEY);
 var uuidv4 = require('uuid/v4');
+const {NodeMediaServer} = require('node-media-server');
 var fs = require('fs')
 
 app.listen(process.env.PORT || 3000, function () {
@@ -479,3 +480,21 @@ app.get('/wachar', function (req, res) {
         res.status(404).end('Not found');
     });
 });
+
+const config = {
+  rtmp: {
+    port: 1935,
+    chunk_size: 60000,
+    gop_cache: true,
+    ping: 0,
+    ping_timeout: 30
+  },
+  http: {
+    port: 8000,
+    mediaroot: './media',
+    allow_origin: '*'
+  }
+};
+
+var nms = new NodeMediaServer(config)
+nms.run();
