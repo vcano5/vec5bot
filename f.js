@@ -483,14 +483,14 @@ app.get('/wachar', function (req, res) {
 
 const config = {
   rtmp: {
-    port: 1935,
+    port: process.env.PORT || 1935,
     chunk_size: 60000,
     gop_cache: true,
     ping: 0,
     ping_timeout: 30
   },
   http: {
-    port: 8000,
+    port: process.env.PORT || 8000,
     mediaroot: './media',
     allow_origin: '*'
   }
