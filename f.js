@@ -179,7 +179,7 @@ app.get('/temperatura', function(req,res) {
 		request(c4, (error, response, body)=> {
 			if (!error && response.statusCode === 200) {
 				const fbResponse = JSON.parse(body)
-				res.json(JSON.parse(responseText("La temperatura actual en " + req.query.ciudad + " es " + fbResponse['currently'].temperature + "°C")))
+				res.json(JSON.parse(responseText("La temperatura actual en Ciudad Juárez es " + fbResponse['currently'].temperature + "°C")))
 			  }
 			  else {
 				res.json(JSON.parse(responseText("No tengo acceso a tu ubicacion :(")))
