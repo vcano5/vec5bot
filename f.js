@@ -175,7 +175,7 @@ app.get('/webhook', function(req,res) {
 //Temperatura
 app.get('/temperatura', function(req,res) {
 	if(req.query.lat !== undefined || req.query.lat !== undefined) {
-		var c4 = ("https://api.darksky.net/forecast/" + process.env.DARKSKY_API + "/" + req.query.lat + "," + req.query.lon + "?lang=es&units=si")
+		var c4 = ("https://api.darksky.net/forecast/" + process.env.DARKSKY_API + "/31.606016,-106.39845?lang=es&units=si")
 		request(c4, (error, response, body)=> {
 			if (!error && response.statusCode === 200) {
 				const fbResponse = JSON.parse(body)
